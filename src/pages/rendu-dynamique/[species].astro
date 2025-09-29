@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import PlotFigure from "../../components/PlotFigure.astro";
 import * as Plot from "@observablehq/plot";
 import penguinsRaw from "../../assets/penguins.json";
+import { COULEURS_ESPECES } from "../../lib/couleurs.ts";
 
 const tidy = (rows) =>
   rows
@@ -31,7 +32,7 @@ const makeOptions = (rows, title) => ({
   ],
   x: { label: "Culmen length (mm)", grid: true },
   y: { label: "Culmen depth (mm)", grid: true },
-  color: { legend: true },
+  color: COULEURS_ESPECES,
   caption: title
 });
 
