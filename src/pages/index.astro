@@ -1,21 +1,10 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
 import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
-import penguins from "../assets/penguins.json";
 ---
-
-<Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
-  />
+<Layout title="TP6 — Routes paramétriques">
+  <ul class="grid gap-2">
+    <li><a class="px-3 py-1 rounded border inline-block" href="/penguins-all">Toutes les espèces</a></li>
+    <li><a class="px-3 py-1 rounded border inline-block" href="/rendu-dynamique">Rendu dynamique</a></li>
+    <li><a class="px-3 py-1 rounded border inline-block" href="/rendu-statique">Rendu statique (prérendu)</a></li>
+  </ul>
 </Layout>

@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+/* petites pilules de nav réutilisables */
+.nav-pill{
+  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 
+         text-slate-300 hover:text-white hover:bg-white/5 transition;
+}
+
+/* cartes + titre */
+.page-title{
+  @apply text-2xl md:text-3xl font-semibold tracking-tight mb-2;
+}
+.kicker{
+  @apply text-xs uppercase tracking-[.2em] text-slate-400;
+}
+.card{
+  @apply rounded-2xl border border-white/10 bg-slate-900/40 shadow-lg shadow-black/30;
+}
+
+/* tooltips Plot en clair */
+.plot-tooltip{
+  color:#0f172a!important;               /* slate-900 */
+  background:#fff!important;
+  border-color:rgba(0,0,0,.2)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.25)!important;
+}

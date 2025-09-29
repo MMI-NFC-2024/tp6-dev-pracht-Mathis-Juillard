@@ -1,26 +1,26 @@
 ---
 import "../styles/global.css";
+const { title = "TP6" } = Astro.props;
 ---
-
 <!doctype html>
-<html lang="en">
+<html lang="fr" class="h-full">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>{title}</title>
   </head>
-  <body>
-    <slot />
-  </body>
-</html>
+  <body class="min-h-full bg-slate-950 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,.15),transparent_60%)] text-slate-100 antialiased">
+    <header class="border-b border-white/5 backdrop-blur bg-slate-900/40">
+      <div class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+        <a href="/" class="font-semibold tracking-tight">TP6 · Observable Plot + Astro</a>
+        <nav class="flex gap-2 text-sm">
+          <a class="nav-pill" href="/penguins-all">Toutes les espèces</a>
+          <a class="nav-pill" href="/rendu-dynamique">Dynamique</a>
+          <a class="nav-pill" href="/rendu-statique">Statique</a>
+        </nav>
+      </div>
+    </header>
 
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
+    <main class="mx-auto max-w-6xl px-6 py-8">
+      <slot />
+    </main>
