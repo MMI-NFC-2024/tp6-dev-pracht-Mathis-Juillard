@@ -2,18 +2,17 @@
 import Layout from "../../../layouts/Layout.astro";
 import cars from "../../../assets/cars.json";
 
-const years = [...new Set(cars.map(c => c.year))].sort((a,b)=>a-b);
+const years = [...new Set(cars.map(c => c.year))].sort((a, b) => a - b);
 ---
 
 <Layout title="Voitures — par année">
   <h1>Voitures — par année</h1>
   <p>Choisissez une année pour voir le nuage de points.</p>
 
-  <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;margin-top:1rem;list-style:none;padding:0">
+  <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;list-style:none;padding:0">
     {years.map(y => (
       <li>
-        <a href={`/cars/year/${y}`}
-           style="display:inline-block;padding:.5rem 1rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;text-decoration:none">
+        <a href={`/cars/years/${y}`} style="display:inline-block;padding:.5rem 1rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;text-decoration:none">
           Année : {y}
         </a>
       </li>

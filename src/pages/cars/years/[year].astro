@@ -1,50 +1,39 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import cars from "../../../assets/cars.json";
-export const prerender = false;
-
-import PlotFigure from "../../../components/PlotFigure.astro";
 import * as Plot from "@observablehq/plot";
+import cars from "../../../assets/cars.json";
+import PlotFigure from "../../../components/PlotFigure.astro";
+
+export const prerender = false; // route dynamique
 
 const { year } = Astro.params;
+const rows = cars.filter(c => String(c.year) === String(year));
 
-// Filtrer les voitures pour l'année spécifiée
-const filteredCars = cars.filter((car) => String(car.year) === String(year));
-
-// Configuration du graphique
-const plotOptions = {
-  width: 920,
+const options = {
+  width: 960,
   height: 520,
   grid: true,
   marks: [
-    Plot.dot(filteredCars, {
+    Plot.dot(rows, {
       x: "weight (lb)",
       y: "power (hp)",
       r: 4,
-      fillOpacity: 0.7,
       fill: "steelblue",
-      tip: true, // infobulles
-    }),
+      fillOpacity: 0.75,
+      tip: true
+    })
   ],
   x: { label: "Poids (lb)" },
   y: { label: "Puissance (hp)" },
-  caption: `Relation Puissance vs Poids — Voitures ${year}`,
+  marginLeft: 56,
+  marginBottom: 48
 };
 ---
 
-<Layout title={`Voitures ${year}`}>
-  <div class="mb-6">
-    <div class="kicker">Cars</div>
-    <h1 class="page-title">Voitures — {year}</h1>
-    <p class="text-slate-400">
-      {filteredCars.length} voiture(s) trouvée(s) pour l’année {year}. &nbsp;
-      <a class="nav-pill" href="/cars/year">← retour aux années</a>
-    </p>
-  </div>
+<Layout title={`Voitures — ${year}`}>
+  <a href="/cars/years" style="display:inline-block;margin:.5rem 0 1rem">← Retour</a>
+  <h1>Voitures de l’année {year}</h1>
+  <p>{rows.length} voiture(s) trouvée(s).</p>
 
-  <div class="card p-5">
-    <div class="overflow-x-auto rounded-xl border border-white/10 bg-slate-900/30 p-3">
-      <PlotFigure options={plotOptions} />
-    </div>
-  </div>
+  <PlotFigure {options} />
 </Layout>
