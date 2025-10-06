@@ -4,11 +4,11 @@ const { title = "TP6" } = Astro.props;
 ---
 <!doctype html>
 <html lang="fr" class="h-full">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{Astro.props?.title ?? "Site"}</title>
+</head>
   <body class="min-h-full bg-slate-950 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,.15),transparent_60%)] text-slate-100 antialiased">
     <header class="border-b border-white/5 backdrop-blur bg-slate-900/40">
       <div class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
