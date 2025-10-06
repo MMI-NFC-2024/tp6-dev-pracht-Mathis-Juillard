@@ -4,9 +4,11 @@ import * as Plot from "@observablehq/plot";
 import cars from "../../../assets/cars.json";
 import PlotFigure from "../../../components/PlotFigure.astro";
 
-export const prerender = false; // route dynamique
 
 const { year } = Astro.params;
+
+const years = [...new Set(cars.map(c => String(c.year)))].sort();
+
 const rows = cars.filter(c => String(c.year) === String(year));
 
 const options = {
@@ -19,21 +21,51 @@ const options = {
       y: "power (hp)",
       r: 4,
       fill: "steelblue",
-      fillOpacity: 0.75,
       tip: true
-    })
+    }),
   ],
-  x: { label: "Poids (lb)" },
-  y: { label: "Puissance (hp)" },
+  x: { label: "Poids (lb)", grid: true },
+  y: { label: "Puissance (hp)", grid: true },
   marginLeft: 56,
-  marginBottom: 48
+  marginBottom: 48,
 };
 ---
 
 <Layout title={`Voitures — ${year}`}>
-  <a href="/cars/years" style="display:inline-block;margin:.5rem 0 1rem">← Retour</a>
-  <h1>Voitures de l’année {year}</h1>
-  <p>{rows.length} voiture(s) trouvée(s).</p>
+  <a href="/cars/years" style="display:inline-flex;gap:.5rem;align-items:center;margin-bottom:1rem">
+    ← Retour
+  </a>
 
-  <PlotFigure {options} />
+  <label for="year-select" style="display:block;margin:.25rem 0 .75rem">
+    Année :
+    <select id="year-select" style="margin-left:.5rem">
+      {
+        years.map((y) => (
+          <option value={y} selected={y === String(year)}>
+            {y}
+          </option>
+        ))
+      }
+    </select>
+  </label>
+
+  <p style="margin:.25rem 0 1rem">
+    {rows.length} voiture(s) trouvée(s).
+  </p>
+
+  {rows.length ? <PlotFigure options={options} /> : <p>Aucune donnée pour {year}.</p>}
+
+  <script>
+    const select = document.getElementById('year-select');
+    select?.addEventListener('change', (e) => {
+      const y = /** @type {HTMLSelectElement} */(e.target).value;
+      location.pathname = `/cars/years/${y}`;
+    });
+  </script>
+
+  <noscript>
+    <p>JavaScript est désactivé : utilisez la
+      <a href="/cars/years">liste des années</a>.
+    </p>
+  </noscript>
 </Layout>
